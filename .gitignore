@@ -1,0 +1,36 @@
+# Node.js files
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build directories
+.next/
+out/
+build/
+dist/
+
+# Cache directories
+.cache/
+.next-cache/
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js image cache
+.next/image/
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
