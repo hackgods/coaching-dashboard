@@ -79,7 +79,11 @@ export default function CoachingSessionsDetails({
                   </Select>
                 </TableCell>
                 <TableCell>
-                  {session.date == null ? <RiDeleteBin5Fill /> : <></>}
+                  {session.date == null ? (
+                    <RiDeleteBin5Fill className="text-red-700" />
+                  ) : (
+                    <></>
+                  )}
                 </TableCell>
               </TableRow>
             ))}

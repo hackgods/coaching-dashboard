@@ -100,7 +100,17 @@ export default function CoachingBundleTable({ coachingData }: Props) {
                   {new Date(bundle.deadline).toLocaleDateString()}
                 </TableCell>
                 <TableCell>{bundle.duration_mins}</TableCell>
-                <TableCell>{bundle.invitation_sent ? "Yes" : "No"}</TableCell>
+                <TableCell>
+                  {bundle.invitation_sent ? (
+                    <div className="bg-green-600 rounded-2xl w-fit px-6 text-zinc-200 font-medium">
+                      Yes
+                    </div>
+                  ) : (
+                    <div className="bg-red-600 rounded-2xl w-fit px-6 text-zinc-200 font-medium">
+                      No
+                    </div>
+                  )}
+                </TableCell>
               </TableRow>
               {expandedRow === bundle.id && (
                 <TableRow>
