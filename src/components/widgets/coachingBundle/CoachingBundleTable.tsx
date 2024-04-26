@@ -12,6 +12,7 @@ import {
 } from "../../ui/table";
 import { Card } from "../../ui/card";
 import { CoachingBundle } from "../../../models/CoachingModels";
+import CoachingBundleDetails from "./CoachingBundleDetails";
 
 interface Props {
   coachingData: CoachingBundle[];
@@ -20,6 +21,14 @@ interface Props {
 export default function CoachingBundleTable({ coachingData }: Props) {
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
   const [coachingDataState, setCoachingDataState] = useState(coachingData);
+
+  const uniqueCoachesNamesSet = new Set<string>();
+  coachingData.forEach((item) => {
+    const coachName = `${item.coach.first_name} ${item.coach.last_name}`;
+    uniqueCoachesNamesSet.add(coachName);
+  });
+
+  const coachesNames: string[] = Array.from(uniqueCoachesNamesSet);
 
   const handleRowClick = (id: number) => {
     setExpandedRow(expandedRow === id ? null : id);
@@ -70,7 +79,14 @@ export default function CoachingBundleTable({ coachingData }: Props) {
               {expandedRow === bundle.id && (
                 <TableRow>
                   <TableCell colSpan={6}>
-                    <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 mx-2 my-4"></div>
+                    <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 mx-2 my-4">
+                      <div className="col-span-1">
+                        <CoachingBundleDetails
+                          bundle={bundle}
+                          coachesNames={coachesNames}
+                        />
+                      </div>
+                    </div>
                   </TableCell>
                 </TableRow>
               )}
