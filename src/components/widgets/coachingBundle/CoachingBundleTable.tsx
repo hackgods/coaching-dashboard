@@ -13,6 +13,7 @@ import {
 import { Card } from "../../ui/card";
 import { CoachingBundle } from "../../../models/CoachingModels";
 import CoachingBundleDetails from "./CoachingBundleDetails";
+import CoachingSessionsDetails from "./CoachingSessionsDetails";
 
 interface Props {
   coachingData: CoachingBundle[];
@@ -32,6 +33,31 @@ export default function CoachingBundleTable({ coachingData }: Props) {
 
   const handleRowClick = (id: number) => {
     setExpandedRow(expandedRow === id ? null : id);
+  };
+
+  const createNewSession = (bundleId: number) => {
+    const newSession = {
+      id: Math.floor(Math.random() * 100) + 1,
+      type: "Coaching",
+      date: null,
+      bundle_id: bundleId,
+      status: {
+        id: 1,
+        title: "Unbooked",
+      },
+    };
+
+    const updatedCoachingData: CoachingBundle[] = coachingDataState.map(
+      (bundle) =>
+        bundle.id === bundleId
+          ? {
+              ...bundle,
+              sessions: [...bundle.sessions, newSession],
+            }
+          : bundle
+    );
+
+    setCoachingDataState(updatedCoachingData);
   };
 
   return (
@@ -84,6 +110,13 @@ export default function CoachingBundleTable({ coachingData }: Props) {
                         <CoachingBundleDetails
                           bundle={bundle}
                           coachesNames={coachesNames}
+                        />
+                      </div>
+
+                      <div className="col-span-2">
+                        <CoachingSessionsDetails
+                          bundle={bundle}
+                          createNewSession={createNewSession}
                         />
                       </div>
                     </div>
